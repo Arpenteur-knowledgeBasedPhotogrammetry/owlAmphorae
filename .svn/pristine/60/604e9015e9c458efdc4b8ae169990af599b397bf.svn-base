@@ -1,0 +1,41 @@
+/**
+ * Create a new graph and add elements to it
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+package edu.amu.nym.editor.model.graph;
+
+import java.util.ArrayList;
+
+
+public class GraphLauncher {
+	
+	//Create a new graph
+	public static GraphAlgo graph = new GraphAlgo("Graphe");
+	
+	//Create an ArrayList that can store the graph nodes
+	public static ArrayList<String> nodeStr = new ArrayList<String>();
+	
+	//To know if the individuals is loaded or no
+	public static boolean isIndividualsLoaded = false;
+
+		
+	/**
+	 * Constract a graph with nodes and relations and Labels
+	 */
+	public GraphLauncher() {		                
+        
+        //Add nodes  
+		graph.addNodes(graph, nodeStr);
+
+        //Add relations
+        graph.addRelations(graph, nodeStr);
+
+        //display labels
+        graph.displayLabels(graph);
+
+        graph.setAutoCreate(true);
+        graph.setStrict(false);
+	}
+}

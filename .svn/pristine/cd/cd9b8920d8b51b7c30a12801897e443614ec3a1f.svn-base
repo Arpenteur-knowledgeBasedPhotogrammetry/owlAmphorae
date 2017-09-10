@@ -1,0 +1,28 @@
+package edu.amu.nym.editor.ui;
+
+
+import javax.swing.JButton;
+import javax.swing.JToolBar;
+
+public class MyToolBar extends JToolBar{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2780192079185518518L;
+	
+    private JButton test1 = new JButton("test1");
+    private JButton test2 = new JButton("test2");
+    private JButton test3 = new JButton("test3");
+    private JButton test4 = new JButton("test4");
+
+	
+	public MyToolBar() {
+		//this.setLayout(new GridLayout(1,7));
+		
+		this.add(test1);
+		this.add(test2);
+		this.add(test3);
+		this.add(test4);
+	}
+}

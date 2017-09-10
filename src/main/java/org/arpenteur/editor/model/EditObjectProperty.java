@@ -1,0 +1,20 @@
+/**
+ * Editing object property selected in the table;
+ * Remove the old one and upload
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+package org.arpenteur.editor.model;
+
+public class EditObjectProperty {
+	
+	/**
+	 * Remove the old Object property and add a new one with the same relation name
+	 * and the edited value.
+	 */
+	public EditObjectProperty(String newObjectPropertyName, String newObjectPropertyValue) {
+		new RemoveObjectProperty(newObjectPropertyName);
+		new AddObjectProperty(newObjectPropertyName, newObjectPropertyValue);
+	}
+}

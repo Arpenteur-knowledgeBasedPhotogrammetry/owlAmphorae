@@ -1,0 +1,42 @@
+/**
+ * Create a graph Panel
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */ 
+package edu.amu.nym.editor.ui;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import org.graphstream.ui.swingViewer.View;
+import org.graphstream.ui.swingViewer.Viewer;
+
+import edu.amu.nym.editor.model.graph.GraphLauncher;
+
+public class GraphPanel extends JPanel{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7853704429869700827L;
+			
+	/**
+	 * Constract the graph panel
+	 */
+	public GraphPanel () {
+		setLayout(new BorderLayout());
+		
+		Viewer viewer = new Viewer(GraphLauncher.graph, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+        View view = viewer.addDefaultView(false);
+        viewer.enableAutoLayout();
+        
+        //Add toolbar (the one with charge graph button)
+        this.add(new FramePanelsToolBars(4), BorderLayout.NORTH);
+        
+        //Add a view inside a scrollPane
+		this.add(new JScrollPane(view), BorderLayout.CENTER);
+	}
+}

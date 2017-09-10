@@ -1,0 +1,66 @@
+/**
+ * Open ontology from URL 
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+package edu.amu.nym.editor.model.ontology;
+
+import java.net.URI;
+
+import javax.swing.JOptionPane;
+import javax.swing.table.TableRowSorter;
+
+import org.semanticweb.owlapi.model.IRI;
+
+import edu.amu.nym.editor.model.GetOntologyClasseForTable;
+import edu.amu.nym.editor.model.Search;
+import edu.amu.nym.editor.ui.ClassesPanel;
+import edu.amu.nym.editor.ui.dialog.ClassesIndividualsDialog;
+import edu.amu.nym.variables.MyVariables;
+
+public class LoadOntologyFromURL {
+	
+	
+	/**
+	 * 
+	 * @param ontologyURL: Ontology URL
+	 */
+	public LoadOntologyFromURL(URI ontologyURI) {
+		URI physicalURI = ontologyURI;
+		
+		try {
+			MyVariables.ontology = MyVariables.ontologyManager.loadOntologyFromOntologyDocument(
+																		IRI.create(physicalURI));
+			JOptionPane.showMessageDialog(null,
+				    "Ontology loaded successfully.",
+				    "Ontology loaded",
+				    JOptionPane.INFORMATION_MESSAGE);
+		} catch (Exception e) {
+			//ErrorLogPanel.showErrorDialog(e);
+		}
+		
+		/**
+		 * if ontology is loaded assign some variables and fill Class table,
+		 * and create a rowSorter for class table
+		 */
+		if (MyVariables.ontology != null) {
+			//Initialize resoner and dataFactory variables
+			MyVariables.reasoner = MyVariables.reasonerFactory.createNonBufferingReasoner(MyVariables.ontology);
+			MyVariables.dataFactory = MyVariables.ontologyManager.getOWLDataFactory();
+			
+			//Fill the classTable with data ( the main table )
+			ClassesPanel.classesTable.setModel(new GetOntologyClasseForTable());
+			
+			//Fill the classTable with data ( the dialog table)
+			ClassesIndividualsDialog.classesTableDialog.setModel(new GetOntologyClasseForTable());
+			
+			//Create and assign a Row Sorter to the table
+			Search.rowSorterClass = new TableRowSorter<>(ClassesPanel.classesTable.getModel());
+			ClassesPanel.classesTable.setRowSorter(Search.rowSorterClass);
+			
+			//Declare that there is changes made to the ontology
+			MyVariables.isOntologyChanged = true;
+		}
+	}
+}

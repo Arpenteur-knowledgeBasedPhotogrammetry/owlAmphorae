@@ -1,0 +1,20 @@
+/**
+ * Create a graph pump for the viewer.
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+package edu.amu.nym.editor.model.graph;
+
+import edu.amu.nym.editor.ui.GraphPanel;
+
+public class GraphPumpRunner implements Runnable {
+
+	@Override
+	public void run() {
+		while (true) {
+			GraphPanel.fromViewer.pump();
+		}
+	}
+
+}

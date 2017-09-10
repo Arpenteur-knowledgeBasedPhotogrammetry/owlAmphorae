@@ -1,0 +1,39 @@
+package edu.amu.nym.editor.ui;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JSplitPane;
+
+public class MyFrame extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5269434384045518445L;
+	
+	public MyFrame() {
+		init();
+		splitFrame();
+	}
+	
+	private void init() {
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.setSize(900, 700);
+		//this.setUndecorated(true);
+		this.setTitle("NYM Editor");
+		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLayout(new BorderLayout());
+		
+		this.setJMenuBar(new MyMenu());
+		
+		add(new MyToolBar(), BorderLayout.NORTH);
+	}
+	
+	private void splitFrame() {
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+				new GetPane(), new SetPane());
+		this.add(splitPane);
+	}
+}

@@ -1,0 +1,48 @@
+package edu.amu.nym.editor.ontology;
+
+import java.io.File;
+
+import javax.swing.JFileChooser;
+
+import org.semanticweb.owlapi.model.OWLOntology;
+
+import edu.amu.nym.editor.model.GetOntologyClasses;
+import edu.amu.nym.editor.ui.GetPane;
+import edu.amu.nym.variables.MyVariables;
+
+public class LoadOntology{
+	
+	
+	private JFileChooser openDialog;
+	
+		
+	public LoadOntology() {
+		openDialog = new JFileChooser();
+		
+		int result = openDialog.showOpenDialog(null);
+		
+		if (result == JFileChooser.APPROVE_OPTION) {
+			File file = openDialog.getSelectedFile();
+			load(file.getAbsolutePath());
+		}
+	}
+	
+	private OWLOntology load(String fileName) {
+		File file = new File(fileName);
+		try {
+			System.err.println("Start Loading Ontology");
+			MyVariables.ontology = MyVariables.ontologyManager.loadOntologyFromOntologyDocument(file);
+			System.err.println("End Loading Ontology");
+		} catch (Exception e) {
+			System.err.println("problem reading ontology from " + fileName + " file name " + e);
+		}
+		
+		if (MyVariables.ontology != null) {
+			//System.err.println("ontology read ok " + MyVariables.ontology.getAxiomCount() + " axioms");
+			GetPane.ontologyClassesCombo.setModel(new GetOntologyClasses());
+			MyVariables.reasoner = MyVariables.reasonerFactory.createNonBufferingReasoner(MyVariables.ontology);
+		}
+		
+		return MyVariables.ontology;
+	}
+}

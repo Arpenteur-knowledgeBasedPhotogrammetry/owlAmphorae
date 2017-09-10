@@ -1,0 +1,24 @@
+package edu.amu.nym.variables;
+
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.structural.StructuralReasonerFactory;
+
+public class MyVariables {
+	
+	public static OWLOntologyManager ontologyManager = OWLManager.createOWLOntologyManager();
+	
+	public static OWLOntology ontology = null;
+	
+	public static OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
+	
+	public static OWLReasoner reasoner = null;
+	
+	
+	public MyVariables() {
+		
+	}
+}

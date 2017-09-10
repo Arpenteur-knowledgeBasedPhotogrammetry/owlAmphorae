@@ -1,0 +1,66 @@
+/**
+ * Extends MultiGraph class and create personal methodes
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+package edu.amu.nym.editor.model.graph;
+
+
+import java.util.ArrayList;
+
+import org.graphstream.graph.*;
+import org.graphstream.graph.implementations.*;
+
+
+public class GraphAlgo extends MultiGraph{
+	
+	//We use public static because each edge need to have a unique ID
+	public static int graphEdgeID = 0;
+	
+	
+	/**
+	 * Constract a new graph
+	 * 
+	 * @param id	Graph ID
+	 */
+	public GraphAlgo(String id) {
+		super(id);
+	}
+	
+	/**
+	 * Add nodes
+	 * 
+	 * @param graph		Graph
+	 * @param nodeStr	Nodes
+	 */
+	public void addNodes(GraphAlgo graph, ArrayList<String> nodeStr){
+        for(int i=0; i< nodeStr.size();i++){
+        	graph.addNode(nodeStr.get(i));
+        }
+	}
+
+	/**
+	 * Add edges -- relations
+	 * 
+	 * @param graph		Graph
+	 * @param nodeStr	Nodes
+	 */
+	public void addRelations(GraphAlgo graph, ArrayList<String> nodeStr){
+        for(int i=0; i< nodeStr.size();i++){
+        	graph.addEdge(" " + graphEdgeID, nodeStr.get(0), nodeStr.get(i));
+        	graphEdgeID++;
+        }
+	}
+		
+	/**
+	 * Add attributes
+	 * 
+	 * @param graph		Graph
+	 */
+	public void displayLabels(GraphAlgo graph){
+        for (Node node : graph) {
+            node.addAttribute("ui.label", node.getId());
+        }
+	}
+}

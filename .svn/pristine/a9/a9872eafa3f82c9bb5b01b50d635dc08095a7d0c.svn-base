@@ -1,0 +1,37 @@
+/**
+ * Add a new individual to a selected class
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+package edu.amu.nym.editor.model;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+
+import edu.amu.nym.editor.ui.ClassesPanel;
+import edu.amu.nym.variables.MyVariables;
+
+public class AddIndividual {
+	
+	/**
+	 * Adding new individual to a selected class
+	 * 
+	 * @param individualName		new individual Name
+	 */
+	public AddIndividual(String individualName) {
+		// the Trick is in ":" .. if u want to add use it
+		
+		OWLClass clsPSS = MyVariables.dataFactory.
+				getOWLClass(IRI.create(MyVariables.prefix() + ":" + ClassesPanel.classSelectedName));
+		
+		OWLNamedIndividual indivName = MyVariables.dataFactory.
+				getOWLNamedIndividual(IRI.create(MyVariables.prefix() + ":" + individualName));
+		
+		OWLClassAssertionAxiom classAssertion = MyVariables.dataFactory.getOWLClassAssertionAxiom(clsPSS, indivName);
+		
+		MyVariables.ontologyManager.addAxiom(MyVariables.ontology, classAssertion);
+	}
+}

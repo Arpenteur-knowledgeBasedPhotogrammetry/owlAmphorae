@@ -1,0 +1,56 @@
+/**
+ * Check the Inconsistency of the ontology
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+
+package edu.amu.nym.editor.model;
+
+import java.util.Set;
+
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import org.protege.editor.core.ui.error.ErrorLogPanel;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.reasoner.ReasonerInterruptedException;
+import org.semanticweb.owlapi.reasoner.TimeOutException;
+
+import edu.amu.nym.variables.MyVariables;
+
+public class InconsistencyTest extends JPanel{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7275065406683460194L;
+	
+	
+	public InconsistencyTest() {
+		if (MyVariables.ontology == null) {
+			JOptionPane.showMessageDialog(this, "Validation  fail, Ontology is null !");
+		} else {
+			System.out.println("Validation start");
+			if(MyVariables.reasoner.isConsistent()) {
+				JOptionPane.showMessageDialog(this, "Ontology is consistent");
+			}
+			
+			if (!MyVariables.reasoner.isConsistent()) {
+				JOptionPane.showMessageDialog(null, "check consistency of Ontologie: " + MyVariables.reasoner.isConsistent());
+				try {
+					Set<OWLClass> problems = MyVariables.reasoner.getUnsatisfiableClasses().getEntities();
+					
+					for (OWLClass cl : problems) {
+						System.out.println("Inconsistent class: " + cl.toStringID());
+					}
+				} catch (TimeOutException e) {
+					ErrorLogPanel.showErrorDialog(e);
+				} catch (ReasonerInterruptedException e) {
+					ErrorLogPanel.showErrorDialog(e);
+				}
+			}
+			System.out.println("Validation end");
+		}
+	}
+}

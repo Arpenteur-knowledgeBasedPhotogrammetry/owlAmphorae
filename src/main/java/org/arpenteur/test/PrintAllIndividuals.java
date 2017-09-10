@@ -1,0 +1,24 @@
+package org.arpenteur.test;
+
+import java.util.Set;
+
+import org.arpenteur.variables.GlobalVariables;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAxiom;
+
+public class PrintAllIndividuals {
+	
+	private Set<OWLNamedIndividual> allIndividuals = null;
+	public PrintAllIndividuals() {
+		System.err.println("start individuals list ");
+		allIndividuals = GlobalVariables.ontology.getIndividualsInSignature();
+		
+		for (OWLNamedIndividual test : allIndividuals) {
+			System.out.println(test);
+		}
+		System.err.println("end individuals list ");
+	}
+}

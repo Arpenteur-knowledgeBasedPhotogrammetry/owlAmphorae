@@ -1,0 +1,27 @@
+package edu.amu.nym.editor.model.graph;
+
+import java.util.Set;
+
+import org.semanticweb.owlapi.model.OWLClass;
+
+import edu.amu.nym.editor.ui.FramePanelsToolBars;
+import edu.amu.nym.variables.MyVariables;
+
+public class GetClassForGraph {
+
+	private Set<OWLClass> ontologyClassesArray = null;
+	
+	public GetClassForGraph(String fff) {
+		if(MyVariables.ontology != null) {
+			ontologyClassesArray = MyVariables.ontology.getClassesInSignature();
+		}
+		
+		for (OWLClass clazz : ontologyClassesArray) {
+			
+			if (!FramePanelsToolBars.selectedClass_Graph.isSelected()) {
+				GraphLauncher.nodeStr.removeAllElements();
+				GraphLauncher.nodeStr.add(clazz.getIRI().getShortForm());
+			}
+		}
+	}
+}

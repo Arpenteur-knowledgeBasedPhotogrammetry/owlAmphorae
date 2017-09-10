@@ -1,0 +1,139 @@
+/**
+ * Create the top Menu. menu items listener is also included
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+package edu.amu.nym.editor.ui;
+
+import java.awt.event.KeyEvent;
+import java.net.URI;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
+import org.protege.editor.core.ui.OpenFromURLPanel;
+
+import edu.amu.nym.editor.model.InconsistencyTest;
+import edu.amu.nym.editor.model.ontology.LoadOntologyFromFile;
+import edu.amu.nym.editor.model.ontology.LoadOntologyFromURL;
+import edu.amu.nym.editor.model.ontology.SaveOntology;
+import edu.amu.nym.editor.model.ontology.SaveOntologyAs;
+
+public class FrameTopMenu extends JMenuBar {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 520211344501258750L;
+	
+	//First menu
+	private final JMenu file = new JMenu("File");
+	
+	//2nd menu
+	private final JMenu tools = new JMenu("Tools");
+	
+	//3rd
+	private final JMenu tabs = new JMenu("Tabs");
+	
+	//4th menu
+	private final JMenu help = new JMenu("Help");
+	
+	
+	//File menu items
+	private final JMenuItem _new = new JMenuItem("New");
+	
+	private final JMenuItem _open = new JMenuItem("Open");
+	
+	private final JMenuItem _openFromURL = new JMenuItem("Open From URL...");
+	
+	private final JMenuItem _save = new JMenuItem("Save");
+	
+	private final JMenuItem _saveAs = new JMenuItem("Save As");
+	
+	private final JMenuItem _exit = new JMenuItem("Exit");
+	
+	//Tools menu items
+	private final JMenuItem _InconsistencyTest = new JMenuItem("Inconsistency Test");
+	
+	//Tabs menu items
+	private final JMenuItem _OntologyGraph = new JMenuItem("Ontology Graph");
+	
+	//Help menu items
+	private final JMenuItem _About = new JMenuItem("About");
+	
+
+	/**
+	 * Constracts the menu
+	 */
+	public FrameTopMenu() {
+		//File menu
+		file.setMnemonic(KeyEvent.VK_F);
+		file.add(_new);
+		file.add(_open);
+		file.add(_openFromURL);
+		file.addSeparator();
+		file.add(_save);
+		file.add(_saveAs);
+		file.addSeparator();
+		file.add(_exit);
+		
+		this.add(file);
+		
+		//Tools menu
+		tools.setMnemonic(KeyEvent.VK_T);
+		tools.add(_InconsistencyTest);
+		
+		this.add(tools);
+		
+		//Tabs menu
+		tabs.setEnabled(true);	//I blocked the tabs Menu just for testing ..
+		tabs.add(_OntologyGraph);
+		
+		this.add(tabs);
+		
+		//Help menu
+		help.setMnemonic(KeyEvent.VK_H);
+		help.add(_About);
+		
+		this.add(help);
+		
+		addListener();
+	}
+	
+	/**
+	 * Add listener to the menu buttons
+	 */
+	private void addListener() {
+		_open.addActionListener(e -> new LoadOntologyFromFile());
+		_openFromURL.addActionListener(e -> new LoadOntologyFromURL(getOntologyURI()));
+		_save.addActionListener(e -> new SaveOntology(true));
+		_saveAs.addActionListener(e -> new SaveOntologyAs());
+		_InconsistencyTest.addActionListener(e -> new InconsistencyTest());
+		_OntologyGraph.addActionListener(e -> graphLauncher());
+	}
+	
+	/**
+	 * Get ontology URI
+	 * @return URI
+	 */
+	private URI getOntologyURI() {
+		return OpenFromURLPanel.showDialog();
+	}
+	
+	/**
+	 * Open Graph launcher
+	 */
+	private void graphLauncher() {
+		/*if(MyVariables.ontology != null && GraphLauncher.isIndividualsLoaded) {
+			//new GraphLauncher();
+			//JOptionPane.showMessageDialog(null, new GraphLauncher());
+			//MainFrameTabbedPane.graphPanel = new GraphLauncher();
+			
+			MainFrame.tabbedPanes.addTab("Ontology Graph", new GraphLauncher());
+		} else {
+			JOptionPane.showMessageDialog(null, "Load the ontology first or/and Amphorae individuals !!");
+		}*/
+	}
+}

@@ -1,0 +1,75 @@
+/**
+ * The second tab ,, it shows the picture of the individual if there is one and description
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+package org.arpenteur.test;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import org.arpenteur.editor.ui.FramePanelsToolBars;
+import org.protege.editor.core.ui.util.ComponentFactory;
+
+public class InstancePanel extends JPanel{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1227986024987700412L;
+
+	private JPanel pictureHolder = null;
+	
+	private JPanel descriptionHolder = null;
+	
+	private JPanel synonymsHolder = null;
+	
+	private JPanel firstParentHolder = new JPanel(new BorderLayout());
+	
+	private JPanel allParentHolder = new JPanel(new BorderLayout());
+	
+	
+	public static JLabel image = new JLabel();
+	
+	/**
+	 * Constracts the tab panel
+	 */
+	public InstancePanel() {
+		setLayout(new BorderLayout());
+		
+		//Picture Holder
+		pictureHolder = new JPanel(new BorderLayout());
+		pictureHolder.setBorder(ComponentFactory.createTitledBorder("Picture"));
+		pictureHolder.setMaximumSize(pictureHolder.getPreferredSize()); 
+		pictureHolder.setMinimumSize(pictureHolder.getPreferredSize());
+		pictureHolder.add(image);
+		
+		//Description Holder
+		descriptionHolder = new JPanel(new BorderLayout());
+		descriptionHolder.setBorder(ComponentFactory.createTitledBorder("Description"));
+		descriptionHolder.setMaximumSize(descriptionHolder.getPreferredSize()); 
+		descriptionHolder.setMinimumSize(descriptionHolder.getPreferredSize());
+		//descriptionHolder.add(this, BorderLayout.CENTER);
+		
+		//Synonyms Holder
+		synonymsHolder = new JPanel(new BorderLayout());
+		synonymsHolder.setBorder(ComponentFactory.createTitledBorder("Synonyms"));
+		synonymsHolder.setMaximumSize(synonymsHolder.getPreferredSize()); 
+		synonymsHolder.setMinimumSize(synonymsHolder.getPreferredSize());
+		//synonymsHolder.add(this, BorderLayout.SOUTH);
+		
+		//Add holders to JPanel
+		firstParentHolder.add(descriptionHolder, BorderLayout.CENTER);
+		firstParentHolder.add(synonymsHolder, BorderLayout.SOUTH);
+		
+		allParentHolder.add(pictureHolder, BorderLayout.CENTER);
+		allParentHolder.add(firstParentHolder, BorderLayout.SOUTH);
+		
+		
+		this.add(new FramePanelsToolBars(4), BorderLayout.NORTH);
+		this.add(allParentHolder, BorderLayout.CENTER);
+	}
+}

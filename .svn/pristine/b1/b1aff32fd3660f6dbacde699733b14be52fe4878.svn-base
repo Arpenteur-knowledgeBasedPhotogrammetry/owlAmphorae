@@ -1,0 +1,46 @@
+/**
+ * Remove selected class of ontology 
+ * This class is still under development
+ * there is some bugs if you use this class
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+package edu.amu.nym.editor.model;
+
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+
+import edu.amu.nym.editor.ui.ClassesPanel;
+import edu.amu.nym.variables.MyVariables;
+
+public class RemoveOWLClass {
+	
+	/**
+	 * 
+	 */
+	public RemoveOWLClass() {
+		
+		/*OWLClass clsPSS = MyVariables.dataFactory.getOWLClass(IRI.create(MyVariables.prefix() + ":" + ClassesPanel.classSelectedName));
+		
+		Set<OWLClassAssertionAxiom> classAssertion = MyVariables.ontology.getClassAssertionAxioms(clsPSS);
+		
+		MyVariables.ontologyManager.removeAxioms(MyVariables.ontology, classAssertion);*/
+		/*for (OWLClass c : MyVariables.ontology.getClassesInSignature()) {
+			if(ClassesPanel.classSelectedName.equals(c.getIRI().getShortForm())) {
+				Set<OWLClassAssertionAxiom> classAssertion = MyVariables.ontology.getClassAssertionAxioms(c);
+				MyVariables.ontologyManager.removeAxiom(MyVariables.ontology, classAssertion.iterator().next());
+			}
+			
+		}*/
+		
+		
+		for (OWLClass c : MyVariables.ontology.getClassesInSignature())  {
+			if(ClassesPanel.classSelectedName.equals(c.getIRI().getShortForm())) {
+				for (OWLClassAssertionAxiom clazzAx : MyVariables.ontology.getClassAssertionAxioms(c)) {
+					MyVariables.ontologyManager.removeAxiom(MyVariables.ontology, clazzAx);
+				}
+			}
+		}
+	}
+}

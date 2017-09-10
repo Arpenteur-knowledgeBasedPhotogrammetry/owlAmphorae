@@ -1,0 +1,44 @@
+/**
+ * Add a new Data Property to a selected individual
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+package edu.amu.nym.editor.model;
+
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+
+import edu.amu.nym.editor.ui.IndividualsPanel;
+import edu.amu.nym.variables.MyVariables;
+
+public class AddDataProperty {
+	
+	/**
+	 * Adding data property to a selected individual
+	 * 
+	 * @param propertyName		Name of data Property
+	 * @param propertyValue		Value of Data Property
+	 * @param propertyType		Data Type of Data Property
+	 */
+	public AddDataProperty(String propertyName, String propertyValue, String propertyType) {
+		for (OWLClass c : MyVariables.ontology.getClassesInSignature()) {
+			String prefix = c.getIRI().getNamespace();
+			OWLAxiom axiom = null;
+			
+			OWLDataProperty hasSomethingProperty = MyVariables.dataFactory.
+													getOWLDataProperty(IRI.create(prefix + propertyName));
+			OWLNamedIndividual classIndName = MyVariables.dataFactory.
+												getOWLNamedIndividual(IRI.create(prefix + IndividualsPanel.individualName));
+			
+			axiom = MyVariables.dataFactory.
+						getOWLDataPropertyAssertionAxiom(hasSomethingProperty, classIndName, propertyValue);
+			
+			MyVariables.ontologyManager.applyChange(new AddAxiom(MyVariables.ontology, axiom));
+		}
+	}
+}

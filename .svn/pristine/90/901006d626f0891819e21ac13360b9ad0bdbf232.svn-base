@@ -1,0 +1,85 @@
+package edu.amu.nym.editor.ui;
+
+import java.awt.BorderLayout;
+import java.awt.Desktop;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JToolBar;
+
+import org.protege.editor.core.ui.error.ErrorLogPanel;
+import org.protege.editor.core.ui.util.LinkLabel;
+
+
+import edu.amu.nym.editor.model.GetOntologyIndividuals;
+
+
+public class GetPane extends JPanel{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5087183153738397084L;
+	
+	private final String classesNameFieldLabel = "Classes Names:  ";
+	
+	private final URI Classes_IRI_DOCUMENTATION = URI.create("https://www.w3.org/TR/2009/REC-owl2-syntax-20091027/#Classes");
+	
+	private MyJTable individualsTable = new MyJTable();
+	
+	public static JComboBox<Object> ontologyClassesCombo = new JComboBox<Object>();
+		
+	
+	public GetPane() {
+		setLayout(new BorderLayout());
+		
+		this.add(createCombo(), BorderLayout.NORTH);
+		this.add(createTable(), BorderLayout.CENTER);
+		
+		addListener();
+	}
+	
+	
+	private JScrollPane createTable() {
+		JScrollPane tableContainer = new JScrollPane(individualsTable);
+		return tableContainer;
+	}
+	
+	private JToolBar createCombo() {
+		JToolBar comboBoxBar = new JToolBar("Ontology Classes");
+		
+		comboBoxBar.add(new LinkLabel(classesNameFieldLabel , e -> {
+        	showOntologyIRIDocumentation();
+        }));
+		comboBoxBar.add(ontologyClassesCombo);
+		
+		return comboBoxBar;
+	}
+	
+	private void showOntologyIRIDocumentation() {
+    	try {
+            Desktop.getDesktop().browse(Classes_IRI_DOCUMENTATION);
+        }
+        catch (IOException ex) {
+            ErrorLogPanel.showErrorDialog(ex);
+        }
+    }
+	
+	private void addListener() {
+		ontologyClassesCombo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				JComboBox comboBox = (JComboBox) event.getSource();
+				Object selected = comboBox.getSelectedItem();
+
+				individualsTable.setModel(new GetOntologyIndividuals(selected.toString()));
+				repaint();
+		        revalidate();
+			}
+		});
+	}
+}

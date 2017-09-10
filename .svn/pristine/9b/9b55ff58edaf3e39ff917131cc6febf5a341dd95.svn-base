@@ -1,0 +1,48 @@
+/**
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+
+package edu.amu.nym.editor.model.graph;
+
+import javax.swing.JOptionPane;
+
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.Node;
+import org.graphstream.ui.view.Viewer;
+import org.graphstream.ui.view.ViewerListener;
+import org.graphstream.ui.view.ViewerPipe;
+
+public class GraphListener {
+	
+	
+	public GraphListener(Graph graph, Viewer viewer) {
+		
+		ViewerPipe fromViewer = viewer.newViewerPipe();
+		
+		fromViewer.addViewerListener(new ViewerListener() {
+	        @Override
+	        public void viewClosed(String viewName) {
+	            // dont care
+	        }
+
+	        @Override
+	        public void buttonPushed(String id) {
+	            Node n = graph.getNode(id);
+	            String attributes[] = n.getAttributeKeySet().toArray(new String[n.getAttributeKeySet().size()]);
+
+	            String attributeToChange = (String) JOptionPane.showInputDialog(null, "Select attibute to modify", "Attribute for " + id, JOptionPane.QUESTION_MESSAGE, null, attributes, attributes[0]);
+	            String curValue = n.getAttribute(attributeToChange);
+	            String newValue
+	                    = JOptionPane.showInputDialog("New Value", curValue);
+	            n.setAttribute(attributeToChange, newValue);
+	        }
+
+	        @Override
+	        public void buttonReleased(String id) {
+	            // don't care
+	        }
+	    });
+	}
+}

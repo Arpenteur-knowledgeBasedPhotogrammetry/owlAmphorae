@@ -1,0 +1,36 @@
+package edu.amu.nym.editor.model;
+
+import java.util.Set;
+
+import javax.swing.DefaultComboBoxModel;
+
+import org.semanticweb.owlapi.model.OWLClass;
+
+import edu.amu.nym.variables.MyVariables;
+
+
+public class GetOntologyClasses extends DefaultComboBoxModel<Object>{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7134317243726704934L;
+		
+	private Set<OWLClass> ontologyClassesArray = null;
+	
+	
+	@SuppressWarnings("deprecation")
+	public GetOntologyClasses() {
+		try{
+			System.err.println("Start Loading classes");
+			ontologyClassesArray = MyVariables.ontology.getClassesInSignature();
+			
+			for (OWLClass test : ontologyClassesArray){
+				this.addElement(test.getIRI().getFragment());
+	    	}
+			System.err.println("End Loading classes");
+		} catch (Exception e) {
+			System.err.println("Get Ontology Classes err: " + e);
+		}
+	}
+}

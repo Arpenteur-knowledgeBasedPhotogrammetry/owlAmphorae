@@ -1,0 +1,12 @@
+package edu.amu.nym.test;
+
+import edu.amu.nym.variables.MyVariables;
+
+public class GetSynonymsTest {
+	
+	
+	public GetSynonymsTest() {
+		
+		
+	}
+}

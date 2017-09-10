@@ -1,0 +1,54 @@
+/**
+ * Remove selected data property
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+package edu.amu.nym.editor.model;
+
+import java.util.Set;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.reasoner.NodeSet;
+
+import edu.amu.nym.editor.ui.DataPropertyPanel;
+import edu.amu.nym.editor.ui.IndividualsPanel;
+import edu.amu.nym.variables.MyVariables;
+
+public class RemoveDataProperty {
+	
+	/**
+	 * Get classes and instances 
+ 	 * Get the selected individual
+ 	 * Get the selected property then delete it
+	 */
+	public RemoveDataProperty() {
+		for (OWLClass c : MyVariables.ontology.getClassesInSignature()) {
+			NodeSet<OWLNamedIndividual> instances = MyVariables.reasoner.getInstances(c, false);
+			for (OWLNamedIndividual i : instances.getFlattened()) {
+				if(i.getIRI().getShortForm().equals(IndividualsPanel.individualName)) {
+					OWLNamedIndividual input = MyVariables.dataFactory.getOWLNamedIndividual(IRI.create(i.getIRI().toString()));
+					Set<OWLDataPropertyAssertionAxiom> properties = MyVariables.ontology.getDataPropertyAssertionAxioms(input);
+					
+					for (OWLDataPropertyAssertionAxiom ax: properties) {
+						if(getDataName(ax).equals(DataPropertyPanel.selectedDataProperty)) {
+							MyVariables.ontologyManager.removeAxiom(MyVariables.ontology, ax);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Filter IRI of the property to delete it.
+	 * @param ax : Take a data property axiom
+	 * @return name of the data property as a String
+	 */
+	private String getDataName(OWLDataPropertyAssertionAxiom ax) {
+		return ax.getDataPropertiesInSignature().iterator().next().getIRI().getShortForm();
+	}
+}

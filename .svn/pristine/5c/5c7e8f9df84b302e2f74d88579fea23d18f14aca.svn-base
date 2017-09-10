@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+	<!-- Tabs -->
+	
+	<extension id="ExampleWorkspaceTab" point="org.protege.editor.core.application.WorkspaceTab">
+		<label value="Individuals Management"/>
+		<class value="org.protege.editor.owl.ui.OWLWorkspaceViewsTab"/>
+		<index value="X"/>
+		<editorKitId value="OWLEditorKit"/>
+		<defaultViewConfigFileName value="viewconfig-exampletab.xml"/>
+   </extension>
+
+	<extension id="ExampleWorkspaceTab2" point="org.protege.editor.core.application.WorkspaceTab">
+		<label value="Example Tab (2)"/>
+		<class value="edu.amu.nym.protege.plugin.tab.ExampleWorkspaceTab2"/>
+		<index value="Y"/>
+		<editorKitId value="OWLEditorKit"/>
+		<defaultViewConfigFileName value="viewconfig-exampletab2.xml"/>
+   </extension>
+   
+   <extension id="ExampleWorkspaceTab3" point="org.protege.editor.core.application.WorkspaceTab">
+		<label value="Nym Graph"/>
+		<class value="org.protege.editor.owl.ui.OWLWorkspaceViewsTab"/>
+		<index value="Z"/>
+		<editorKitId value="OWLEditorKit"/>
+		<defaultViewConfigFileName value="viewconfig-exampletab3.xml"/>
+   </extension>
+   
+   <!-- End Tabs -->
+
+	<!-- 1st View -->
+
+	<extension id="ExampleViewComponent" point="org.protege.editor.core.application.ViewComponent">
+		<label value="Individuals" />
+		<class value="edu.amu.nym.protege.plugin.get.view.GetViewComponent" />
+		<headerColor value="@org.protege.ontologycolor"/>
+		<category value="@org.protege.ontologycategory" />
+	</extension>
+	
+	<extension id="ExampleViewComponent1" point="org.protege.editor.core.application.ViewComponent">
+		<label value="Individual Properties" />
+		<class value="edu.amu.nym.protege.plugin.set.view.SetViewComponent" />
+		<headerColor value="@org.protege.ontologycolor"/>
+		<category value="@org.protege.ontologycategory" />
+	</extension>
+	
+	<!-- End 1st View -->
+	
+	<!-- 2nd View -->
+	
+	<extension id="ExampleViewComponent2" point="org.protege.editor.core.application.ViewComponent">
+		<label value="Class Hierarchy" />
+		<class value="edu.amu.nym.protege.plugin.tree.view.TreeViewComponent" />
+		<headerColor value="@org.protege.ontologycolor"/>
+		<category value="@org.protege.ontologycategory" />
+	</extension>
+	
+	<extension id="ExampleViewComponent3" point="org.protege.editor.core.application.ViewComponent">
+		<label value="Graph" />
+		<class value="edu.amu.nym.protege.plugin.graph.view.GraphViewComponent" />
+		<headerColor value="@org.protege.ontologycolor"/>
+		<category value="@org.protege.ontologycategory" />
+	</extension>
+	
+	<!-- End 2nd View -->
+    
+</plugin>

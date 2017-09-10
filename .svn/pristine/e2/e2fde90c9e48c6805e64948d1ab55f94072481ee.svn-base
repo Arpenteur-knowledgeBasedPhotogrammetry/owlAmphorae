@@ -1,0 +1,41 @@
+/**
+ * Add a new Object property to a selected individual
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+package edu.amu.nym.editor.model;
+
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+
+import edu.amu.nym.editor.ui.IndividualsPanel;
+import edu.amu.nym.variables.MyVariables;
+
+public class AddObjectProperty {
+	
+	/**
+	 * Constract a new Object property
+	 * 
+	 * @param objectPropertyName	The name of the object property
+	 * @param objectPropertyValue	The value of the object property
+	 */
+	public AddObjectProperty(String objectPropertyName, String objectPropertyValue) {
+		for (OWLClass c : MyVariables.ontology.getClassesInSignature()) {
+			String prefix = c.getIRI().getNamespace();
+			
+			OWLNamedIndividual classIndName = MyVariables.dataFactory.getOWLNamedIndividual(IRI.create(prefix + objectPropertyValue));
+			OWLNamedIndividual originIndName = MyVariables.dataFactory.getOWLNamedIndividual(IRI.create(prefix + IndividualsPanel.individualName));
+			OWLObjectProperty objectName = MyVariables.dataFactory.getOWLObjectProperty(IRI.create(prefix + objectPropertyName));
+			
+			OWLAxiom axiom = MyVariables.dataFactory.getOWLObjectPropertyAssertionAxiom(objectName, originIndName, classIndName);
+			
+			AddAxiom addAxiom = new AddAxiom(MyVariables.ontology, axiom);
+			MyVariables.ontologyManager.applyChange(addAxiom);
+		}
+	}
+}

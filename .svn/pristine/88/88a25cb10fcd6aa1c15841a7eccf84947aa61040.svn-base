@@ -1,0 +1,101 @@
+/**
+ * Create a new graph and add elements to it
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+package edu.amu.nym.editor.model.graph;
+
+import java.awt.BorderLayout;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
+
+import org.graphstream.graph.Edge;
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.Node;
+import org.graphstream.graph.implementations.AdjacencyListGraph;
+import org.graphstream.ui.swingViewer.DefaultView;
+import org.graphstream.ui.view.View;
+import org.graphstream.ui.view.Viewer;
+import org.graphstream.ui.view.ViewerPipe;
+
+import edu.amu.nym.editor.ui.FramePanelsToolBars;
+
+
+public class GraphLauncher extends JPanel{
+
+	//Create a new graph
+	public static Graph graph = null;
+	
+	//Create an ArrayList that can store the graph nodes
+	public static ArrayList<String> nodeStr = new ArrayList<String>();
+	
+	//To know if the individuals is loaded or no
+	public static boolean isIndividualsLoaded = false;
+
+	
+	//Add nodes
+		public void addNodes(Graph graph, ArrayList<String> nodeStr){
+	        for(int i=0; i< nodeStr.size();i++){
+	        	//graph.addNode(nodeStr.get(i));
+	        	Node nodeI = graph.addNode(nodeStr.get(i));
+	            nodeI.addAttribute("ui.label", nodeStr.get(i));
+	            nodeI.addAttribute("ui.class", "instance");
+	        }
+		}
+
+		//Add edge -- relations
+		public void addRelations(Graph graph, ArrayList<String> nodeStr){
+			int a=0;
+	        for(int i=0; i< nodeStr.size();i++){
+	        	//graph.addEdge(" "+a,nodeStr.get(0), nodeStr.get(i));
+	        	Edge edge = graph.addEdge(" "+a,nodeStr.get(0), nodeStr.get(i));
+                edge.setAttribute("ui.style", "fill-color: rgb(40,240,40);");
+                edge.addAttribute("ui.size", 2);
+                edge.addAttribute("ui.label", "");
+            	a++;
+        	        	
+	        }
+		}
+			
+		//Add attribute
+		public void displayLabels(Graph graph){
+	        for (Node node : graph) {
+	            node.addAttribute("ui.label", node.getId());
+	        }
+		}
+	
+		
+	public GraphLauncher() {
+	    System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
+
+		setLayout(new BorderLayout());
+
+		 graph = new AdjacencyListGraph("Entity graph");
+		 String styleSheet = "graph {  fill-color: gray; }" +
+
+		        "node { shape: box; size-mode: fit; fill-color: white; stroke-width: 2px; stroke-mode: plain; stroke-color: green; }"
+		        + "node:clicked { fill-color: #F00A, #F000;}" + "node:selected {fill-color: #00FA, #00F0;}" + "node.instance {fill-color: rgb(200,200,255);}"
+		        + "edge {shape: line; size: 2px; fill-mode:plain; fill-color:blue, red; arrow-shape:arrow;}"
+		        + "sprite { shape: circle; fill-mode: gradient-radial; fill-color: #FFF8, #FFF0;}";
+		    graph.addAttribute("ui.stylesheet", styleSheet);
+		    graph.addAttribute("ui.quality");
+		    graph.addAttribute("ui.antialias");
+
+	
+        //appel mÃ©thode pour ajout des noeuds   
+        addNodes(graph, nodeStr);
+
+        addRelations(graph, nodeStr);
+
+        //display labels
+        displayLabels(graph);
+
+        graph.setAutoCreate(true);
+        graph.setStrict(false);
+	}
+}

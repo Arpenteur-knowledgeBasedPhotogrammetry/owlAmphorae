@@ -1,0 +1,42 @@
+package edu.amu.nym.editor.model;
+
+import java.util.Set;
+import java.util.Vector;
+
+import javax.swing.table.DefaultTableModel;
+
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.reasoner.NodeSet;
+
+import edu.amu.nym.variables.MyVariables;
+
+
+public class GetOntologyIndividuals extends DefaultTableModel{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1624199759312163102L;	
+	
+	
+	public GetOntologyIndividuals(String className) {
+		this.addColumn("Individual");
+		this.addColumn("IDn");
+		this.addColumn("Name");
+		this.addColumn("Typology Name");
+		
+		Vector<String> rows = new Vector<String>();
+		
+		for (OWLClass c : MyVariables.ontology.getClassesInSignature()) {
+		    if (c.getIRI().getFragment().equals(className)){
+		        NodeSet<OWLNamedIndividual> instances = MyVariables.reasoner.getInstances(c, false);
+		        for (OWLNamedIndividual i : instances.getFlattened()) {
+		            rows.add(i.getIRI().getFragment());
+		            this.addRow(rows);
+		        }
+		        
+		    }
+		}
+	}
+}

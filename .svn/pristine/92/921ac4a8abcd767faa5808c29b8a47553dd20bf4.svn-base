@@ -1,0 +1,56 @@
+/**
+ * Remove Object property
+ * 
+ * @author Yaaqoub Semlali, The University Of Aix-Marseille
+ * @see <a href="http://www.yaaqoubsemlali.com">http://www.yaaqoubsemlali.com</a>
+ */
+package edu.amu.nym.editor.model;
+
+import java.util.Set;
+
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.reasoner.NodeSet;
+
+import edu.amu.nym.editor.ui.IndividualsPanel;
+import edu.amu.nym.variables.MyVariables;
+
+public class RemoveObjectProperty {
+	
+	/**
+	 * Remove the selected object property
+	 * 
+	 * @param objectPropertyName	Object property name
+	 */
+	public RemoveObjectProperty(String objectPropertyName) {
+		for (OWLClass c : MyVariables.ontology.getClassesInSignature()) {
+			NodeSet<OWLNamedIndividual> instances = MyVariables.reasoner.getInstances(c, false);
+			
+			for (OWLNamedIndividual i : instances.getFlattened()) {
+				if(i.getIRI().getShortForm().equals(IndividualsPanel.individualName)) {
+					OWLNamedIndividual input = MyVariables.dataFactory.
+										getOWLNamedIndividual(IRI.create(i.getIRI().toString()));
+					Set<OWLObjectPropertyAssertionAxiom> properties = MyVariables.ontology.
+										getObjectPropertyAssertionAxioms(input);
+					
+					for (OWLObjectPropertyAssertionAxiom ax: properties) {
+						if(getObjectName(ax).equals(objectPropertyName)) {
+							MyVariables.ontologyManager.removeAxiom(MyVariables.ontology, ax);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Filter IRI of the property to delete it.
+	 * @param ax : Take a Object property axiom
+	 * @return name of the Object property as a String
+	 */
+	private String getObjectName(OWLObjectPropertyAssertionAxiom ax) {
+		return ax.getObjectPropertiesInSignature().iterator().next().getIRI().getShortForm();
+	}
+}

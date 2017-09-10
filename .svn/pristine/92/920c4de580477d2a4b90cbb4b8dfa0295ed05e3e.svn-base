@@ -1,0 +1,16 @@
+package edu.amu.nym.editor.ui;
+
+import javax.swing.JPanel;
+
+public class SetPane extends JPanel{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7371241218016504486L;
+	
+	
+	public SetPane() {
+		
+	}
+}

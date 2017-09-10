@@ -1,0 +1,43 @@
+/**
+ * Load ontology classes.
+ * This class return a ComboBox model to fill combobox classes in the editor and the plugin
+ */
+package edu.amu.nym.protege.plugin.model;
+
+import java.util.Set;
+
+import javax.swing.DefaultComboBoxModel;
+
+import org.protege.editor.core.ui.error.ErrorLogPanel;
+import org.semanticweb.owlapi.model.OWLClass;
+
+import edu.amu.nym.variables.MyVariables;
+
+
+public class GetOntologyClasses extends DefaultComboBoxModel<Object>{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7134317243726704934L;
+		
+	private Set<OWLClass> ontologyClassesArray = null;
+	
+	@SuppressWarnings("deprecation")
+	public GetOntologyClasses() {
+		try{
+			System.out.println("======== {Start Loading classes} ========");
+			
+			if(MyVariables.ontology != null) {
+				ontologyClassesArray = MyVariables.ontology.getClassesInSignature();
+			}
+	
+			for (OWLClass test : ontologyClassesArray){
+				this.addElement(test.getIRI().getFragment());
+	    	}
+			System.out.println("======== {End Loading classes} ========");
+		} catch (Exception e) {
+			ErrorLogPanel.showErrorDialog(e);
+		}
+	}
+}
