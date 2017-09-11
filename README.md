@@ -41,7 +41,5 @@ Go to **workspace\owlAmphorae\target**, copy the jar file and paste it in plugin
 Contacts
 --------
 
-* **Pierre Drap** - [pierre.drap@gmail.com](pierre.drap@gmail.com) - [Pierre.Drap@univ-amu.fr](Pierre.Drap@univ-amu.fr)
-* **Yaaqoub Semlali** - [semlali.yaaqoub@gmail.com](semlali.yaaqoub@gmail.com) - [GitHub](https://github.com/Yaaqoub) - [LinkedIn](https://www.linkedin.com/in/semlaliyaaqoub) - [Web Site](http://www.yaaqoubsemlali.com/)
-Pierre Drap     : pierre.drap@gmail.com / Pierre.Drap@univ-amu.fr
-
+* **Pierre Drap** - [pierre.drap@gmail.com](mailto:pierre.drap@gmail.com) - [Pierre.Drap@univ-amu.fr](mailto:Pierre.Drap@univ-amu.fr)
+* **Yaaqoub Semlali** - [semlali.yaaqoub@gmail.com](mailto:semlali.yaaqoub@gmail.com) - [GitHub](https://github.com/Yaaqoub) - [LinkedIn](https://www.linkedin.com/in/semlaliyaaqoub) - [Web Site](http://www.yaaqoubsemlali.com/)
