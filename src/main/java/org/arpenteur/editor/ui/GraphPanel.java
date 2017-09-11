@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import org.arpenteur.editor.model.graph.GraphLauncher;
-import org.graphstream.ui.graphicGraph.GraphicNode;
 import org.graphstream.ui.swingViewer.ViewPanel;
 import org.graphstream.ui.view.Viewer;
 import org.graphstream.ui.view.ViewerListener;
@@ -81,8 +80,7 @@ public class GraphPanel extends JPanel implements ViewerListener {
 		//Test Test Test
 		//GraphicNode n = viewer.getGraphicGraph().getNode(id);
 		//int nx = (int) n.getX();
-		//new GraphMenu().show();;
-		
+		new GraphMenu().show(GraphPanel.this, 5, 5);
 	}
 
 	@Override

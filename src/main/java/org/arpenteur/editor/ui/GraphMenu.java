@@ -14,7 +14,7 @@ public class GraphMenu extends JPopupMenu {
 	private JMenuItem rename = new JMenuItem("Rename");
 	
 	private JMenuItem copy = new JMenuItem("Copy");
-		
+	
 	
 	public GraphMenu() {
 		super("Menu");
