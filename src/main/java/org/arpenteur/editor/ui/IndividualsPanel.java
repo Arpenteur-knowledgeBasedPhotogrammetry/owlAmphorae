@@ -77,7 +77,7 @@ public class IndividualsPanel extends JPanel{
 				    
 				    //Get the selected row value
 				    individualName = individualsTable.getModel().getValueAt(row, 0).toString();
-				    				    
+				    System.out.println("IndividualPanel .... individualsTable.getModel().getValueAt(row, 0) "+individualsTable.getModel().getValueAt(row, 0).getClass().getName()  );				    
 				    //Get Image location
 				   /* new GetImageLocation(individualName, "hasImage");
 				    try {

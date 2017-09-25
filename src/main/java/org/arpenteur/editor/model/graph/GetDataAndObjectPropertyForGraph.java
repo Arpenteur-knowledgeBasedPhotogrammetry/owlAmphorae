@@ -9,6 +9,8 @@ import org.arpenteur.editor.ui.IndividualsPanel;
 
 public class GetDataAndObjectPropertyForGraph {
 	
+	public static long ID = 0;
+	
 	public static Object[] theObjectPropertyTable = null;
 	
 	private Random rand = new Random();
@@ -41,13 +43,15 @@ public class GetDataAndObjectPropertyForGraph {
 		
 	    for (int i = 0 ; i < dataPropertyTable.length ; i++) {
 	    	randomNumber = rand.nextInt(999) + 1;
-	    	GraphLauncher.nodeStr.add(dataPropertyTable[i].toString() + randomNumber);
+	    	ID++;
+	    	GraphLauncher.nodeStr.add("id: "+ID+" Value: "+dataPropertyTable[i].toString() );
 	    }
 	    
 	    for (int i = 0 ; i < objectPropertyTable.length ; i++) {
 	    	randomNumber = rand.nextInt(999) + 1;
-	    	GraphLauncher.nodeStr.add(objectPropertyTable[i].toString() + randomNumber);
-	    	theObjectPropertyTable[i] = objectPropertyTable[i].toString() + randomNumber;
+	    	ID++;
+	    	GraphLauncher.nodeStr.add("id: "+ID+" Object: "+objectPropertyTable[i].toString() );
+	    	theObjectPropertyTable[i] = "id: "+ID+" Object: "+objectPropertyTable[i].toString() ;
 	    }
 	}
 }
