@@ -1,0 +1,14 @@
+# Logs
+logs
+
+# svn directory
+.svn
+
+# git directory
+.git
+
+#Settings directory
+.settings
+
+#Target directory
+target
